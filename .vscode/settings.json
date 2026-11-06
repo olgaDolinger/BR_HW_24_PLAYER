@@ -33,5 +33,5 @@
     "--query-driver=**",
     "--compile-commands-dir=c:\\Helga\\beetroot\\Module_34\\build"
   ],
-  "idf.flashType": "JTAG"
+  "idf.flashType": "UART"
 }

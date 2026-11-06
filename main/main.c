@@ -32,23 +32,32 @@ typedef struct {
     uint16_t duration_ms;
 } note_t;
 
-// Мелодія: "Baby Shark" (C D E | C D E | C D E)
-// Ba-by shark, doo doo doo doo doo doo
+/* // Мелодія: "Jingle Bells" (E E E | E E E | E G C D E)
 static const note_t melody[] = {
-    // Фраза 1
-    {NOTE_C4, 300}, {NOTE_D4, 300},                                   // Ba-by
-    {NOTE_E4, 200}, {NOTE_E4, 150}, {NOTE_E4, 150}, {NOTE_E4, 150},   // shark doo doo doo
-    {NOTE_E4, 150}, {NOTE_E4, 150}, {NOTE_E4, 300},                   // doo doo doo
-    // Фраза 2
-    {NOTE_C4, 300}, {NOTE_D4, 300},
-    {NOTE_E4, 200}, {NOTE_E4, 150}, {NOTE_E4, 150}, {NOTE_E4, 150},
-    {NOTE_E4, 150}, {NOTE_E4, 150}, {NOTE_E4, 300},
-    // Фраза 3
-    {NOTE_C4, 300}, {NOTE_D4, 300},
-    {NOTE_E4, 200}, {NOTE_E4, 150}, {NOTE_E4, 150}, {NOTE_E4, 150},
-    {NOTE_E4, 150}, {NOTE_E4, 150}, {NOTE_E4, 300},
+    {NOTE_E4, 250}, {NOTE_E4, 250}, {NOTE_E4, 500}, // E E E
+    {NOTE_E4, 250}, {NOTE_E4, 250}, {NOTE_E4, 500}, // E E E
+    {NOTE_E4, 250}, {NOTE_G4, 250}, {NOTE_C4, 250}, {NOTE_D4, 250}, {NOTE_E4, 800}, // E G C D E
     {NOTE_REST, 400} // Пауза перед повтором
 };
+ */
+// Мелодія: "Baby Shark" (C D E | C D E | C D E)
+// Ba-by shark, doo doo doo doo doo doo
+static const note_t melody1[] = {
+    // Фраза 1
+    {NOTE_C4, 300}, {NOTE_D4, 300},                                   // Ba-by
+    {NOTE_E4, 200}, {NOTE_E4, 150}, {NOTE_E4, 300}, {NOTE_E4, 150},   // shark doo doo doo
+    {NOTE_E4, 300}, {NOTE_E4, 150}, {NOTE_E4, 300},                   // doo doo doo
+    // Фраза 2
+    {NOTE_C4, 300}, {NOTE_D4, 300},
+    {NOTE_E4, 200}, {NOTE_E4, 150}, {NOTE_E4, 300}, {NOTE_E4, 150},
+    {NOTE_E4, 300}, {NOTE_E4, 150}, {NOTE_E4, 300},
+    // Фраза 3
+    {NOTE_C4, 300}, {NOTE_D4, 300},
+    {NOTE_E4, 200}, {NOTE_E4, 150}, {NOTE_E4, 300}, {NOTE_E4, 150},
+    {NOTE_E4, 300}, {NOTE_E4, 150}, {NOTE_E4, 300},
+    {NOTE_REST, 400} // Пауза перед повтором
+};
+
 
 // Ініціалізація LEDC PWM
 static void buzzer_init(void)
@@ -105,12 +114,12 @@ void app_main(void)
     ESP_LOGI(TAG, "Ініціалізація синтезатора на LEDC PWM...");
     buzzer_init();
 
-    int melody_len = sizeof(melody) / sizeof(melody[0]);
+    int melody_len = sizeof(melody1) / sizeof(melody1[0]);
 
     while (1) {
         ESP_LOGI(TAG, "Відтворення мелодії...");
         for (int i = 0; i < melody_len; i++) {
-            play_note(melody[i].freq, melody[i].duration_ms);
+            play_note(melody1[i].freq, melody1[i].duration_ms);
         }
         // Пауза перед наступним циклом мелодії
         vTaskDelay(pdMS_TO_TICKS(1000));
